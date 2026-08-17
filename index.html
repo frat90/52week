@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111827">
+  <meta name="description" content="52 Week Challenge — monitora i tuoi progressi di risparmio.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="style.css">
+  <title>52 Week Challenge</title>
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">RISPARMIO</p>
+        <h1>52 Week Challenge</h1>
+        <p class="subtitle">Una settimana alla volta, fino a <strong>€1.378</strong>.</p>
+      </div>
+      <button id="resetBtn" class="icon-btn" title="Azzera tutti i dati" aria-label="Azzera tutti i dati">↺</button>
+    </header>
+
+    <section class="summary-grid">
+      <article class="card progress-card">
+        <div class="card-label">PROGRESSO</div>
+        <div class="big-number"><span id="completedCount">0</span><small>/52</small></div>
+        <div class="progress-track"><div id="progressBar" class="progress-fill"></div></div>
+        <div class="muted" id="progressPercent">0% completato</div>
+      </article>
+
+      <article class="card">
+        <div class="card-label">RISPARMIATO</div>
+        <div class="money" id="savedAmount">€0</div>
+        <div class="muted">su €1.378</div>
+      </article>
+
+      <article class="card">
+        <div class="card-label">PREVISTO</div>
+        <div class="money" id="expectedAmount">€0</div>
+        <div class="muted">in base alle settimane completate</div>
+      </article>
+
+      <article class="card">
+        <div class="card-label">SCOSTAMENTO</div>
+        <div class="money" id="differenceAmount">€0</div>
+        <div class="muted" id="differenceLabel">sei in linea</div>
+      </article>
+    </section>
+
+    <section class="card status-card">
+      <div>
+        <div class="card-label">SITUAZIONE</div>
+        <h2 id="statusTitle">Inizia dalla settimana 1</h2>
+        <p id="statusText" class="muted">Il tuo primo obiettivo è mettere da parte €1.</p>
+      </div>
+      <div class="next-badge" id="nextBadge">€1</div>
+    </section>
+
+    <section class="section-head">
+      <div>
+        <p class="eyebrow">LE 52 SETTIMANE</p>
+        <h2>Il tuo percorso</h2>
+      </div>
+      <select id="filterSelect" aria-label="Filtra settimane">
+        <option value="all">Tutte</option>
+        <option value="pending">Da fare</option>
+        <option value="done">Completate</option>
+      </select>
+    </section>
+
+    <section id="weeksGrid" class="weeks-grid"></section>
+
+    <section class="card tools-card">
+      <div>
+        <div class="card-label">DATI</div>
+        <h2>Backup locale</h2>
+        <p class="muted">Esporta i tuoi progressi per conservarli o importarli su un altro dispositivo.</p>
+      </div>
+      <div class="tool-buttons">
+        <button id="exportBtn" class="secondary-btn">Esporta</button>
+        <label class="secondary-btn file-btn">Importa<input id="importInput" type="file" accept="application/json"></label>
+      </div>
+    </section>
+
+    <footer>
+      <p>I dati restano nel browser del dispositivo. Nessun account e nessun server.</p>
+    </footer>
+  </main>
+
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-backdrop"></div>
+    <div class="modal-box">
+      <button id="closeModal" class="close-btn" aria-label="Chiudi">×</button>
+      <p class="eyebrow" id="modalEyebrow">SETTIMANA 1</p>
+      <h2 id="modalTitle">Versamento</h2>
+      <p class="modal-target">Obiettivo: <strong id="modalTarget">€1</strong></p>
+
+      <form id="weekForm">
+        <label>Data effettiva
+          <input id="dateInput" type="date" required>
+        </label>
+        <label>Importo versato
+          <input id="amountInput" type="number" min="0" step="0.01" inputmode="decimal" required>
+        </label>
+        <label>Note
+          <textarea id="notesInput" rows="3" maxlength="300" placeholder="Es. arrotondato a €10"></textarea>
+        </label>
+        <div class="form-actions">
+          <button type="button" id="deleteBtn" class="danger-btn hidden">Elimina</button>
+          <button type="submit" class="primary-btn">Salva versamento</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
